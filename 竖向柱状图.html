@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/echarts.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 800px;height: 500px;"></div>
+    <script>
+        var mCharts = echarts.init(document.querySelector('div'));
+        var xDataArr = ['李四', '霍云虎', '王五', '闰土', '小明', '茅台', '二妞', '大强'];
+        var yDataArr = [88, 100, 64, 77, 45, 80, 72, 86];
+
+        var option = {
+            title: {
+                text: '创新班的期末成绩',
+                left: 'center',
+                textStyle: {
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: 'blue',
+                },
+                borderWidth: 5,
+                borderColor: 'blue',
+                borderRadius: 5
+            },
+            tooltip: {
+                //tigger: 'item'       //鼠标移到柱体上时会有提示tigger
+                // tigger: 'axis',          //移到轴当中就行
+                tiggerOn: 'click'           //鼠标点击才会有提示
+            },
+
+            xAxis: {
+                type: 'category',
+                data: xDataArr,
+
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '期末平均成绩',
+                    type: 'bar',
+                    showBackground: true,
+                    backgroundStyle: {
+                        color: 'rgba(180, 180, 180, 1)'
+                    },
+                    markPoint: {
+                        data: [
+                            {
+                                type: 'max', name: '最大值'
+                            }, {
+                                type: 'min', name: '最小值'
+                            }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {
+                                type: 'average', name: '平均值'
+                            }
+                        ]
+                    },
+                    label: {    //显示数值
+                        show: true,
+                        // rotate: 40
+                        // position: 'inside'//显示在里面
+                        position: 'top'
+                    },
+                    barWidth: '50%',
+                    data: yDataArr
+                }
+            ]
+        }
+        mCharts.setOption(option);
+    </script>
+</body>
+
+</html>

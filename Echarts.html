@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 步骤1:引入Echarts.js文件 -->
+    <script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+    <!-- 步骤2:准备一个呈现图标的盒子 -->
+    <div style="width: 600px;height: 400px;"></div>
+    <script>
+        //参数，dom，决定图标最终呈现的位置  
+        //步骤3:初始化echarts实例对象
+        var mCharts = echarts.init(document.querySelector('div'));//要写在div下面
+        //步骤4:准备配置项
+        var option = {
+            title: {
+                text: '河北机电职业技术学院期末成绩',
+                link: 'https://zs.hbjd.edu.cn/',//主标题链接跳转
+                textStyle: {
+                    color: 'blue'
+                }
+            },
+            //直角坐标系中的x轴
+            xAxis: {
+                type: 'category',   //category是类目轴  通过data展示
+                data: ['香茗', '小红', '向往']
+            },
+            //直角坐标系中的y轴
+            yAxis: {
+                type: 'value'//数值轴
+            },
+            //series :系列列表。每个系列通过type决定自己的图表类型
+            series: [
+                {
+                    name: '语文',  //图的标题
+                    type: 'bar',//bar  柱状图    line线图  pie饼图
+                    data: [70, 92, 45]
+                }
+            ]
+        }
+        //步骤5： 将配置项设置给echarts实例对象
+        mCharts.setOption(option);
+
+
+
+
+
+    </script>
+</body>
+
+</html>
