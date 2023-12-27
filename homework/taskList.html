@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>任务列表程序-霍云虎</title>
+	<script src="../lib/vue.js"></script>
+	<script src="../lib/jquery-3.4.1.min.js"></script>
+</head>
+<style>
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-image: url('https://pic3.zhimg.com/v2-d199d6378bae04d83327b18d07c09b56_r.jpg');
+		background-size: cover;
+		position: relative;
+	}
+
+	html::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+		z-index: -1;
+	}
+
+	.btn {
+		background-color: rgb(0, 118, 246);
+		color: white;
+		width: 90px;
+		height: 45px;
+		border: 1px;
+		border-radius: 4px;
+		cursor: pointer;
+		vertical-align: middle;
+	}
+
+	.sbtn {
+		float: right;
+		background-color: rgb(0, 118, 246);
+		color: white;
+		width: 50px;
+		height: 30px;
+		border: 1px;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	h2 {
+		color: white;
+	}
+
+	ul {
+		padding: 10px;
+	}
+
+	ul>li {
+		list-style: none;
+		margin-bottom: 15px;
+		color: white;
+		height: 30px;
+		line-height: 30px;
+	}
+
+	ul li:hover {
+		height: 30px;
+		border-radius: 5px;
+		background-color: rgba(255, 250, 250, 0.3);
+		z-index: 1;
+	}
+
+	.intbutton {
+		height: 50px;
+		display: flex;
+		align-items: center;
+	}
+
+	input {
+		width: 400px;
+		padding: 10px;
+		margin-right: 10px;
+	}
+
+	.imgp {
+		width: 40px;
+		height: 40px;
+		border-radius: 10%;
+		overflow: hidden;
+		float: right;
+		position: absolute;
+		right: 0px;
+		top: 0px;
+	}
+
+	.touXiang {
+		width: 523px;
+		height: 50px;
+		position: relative;
+	}
+
+	footer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		bottom: 0;
+		background-color: rgba(25, 26, 33, 0.6);
+		width: 100%;
+		text-align: center;
+		color: white;
+	}
+
+	#m {
+		width: 1220px;
+		height: 666px;
+		margin: auto;
+		position: relative;
+		overflow: hidden;
+	}
+
+	#m div {
+		color: #ffff;
+		font-size: 10px;
+		filter: blur(2px);
+		position: absolute;
+	}
+
+	.Unuologo {
+		height: 20px;
+		width: 100px;
+	}
+</style>
+
+<body>
+	<!-- 主要代码 -->
+	<div id="app">
+		<div class="touXiang">
+			<h2>任务列表</h2>
+			<img src="https://img.wxcha.com/m00/47/ca/95a25c2804b3a9bc7675d514ce74d2cd.jpg" alt="头像" class="imgp"
+				@click="chufa" />
+		</div>
+		<div class="intbutton">
+			<input v-model="newTask" placeholder="输入任务-按回车快速添加任务" @keyup.enter="addTask">
+			<button @click="addTask" class="btn">添加任务</button>
+		</div>
+		<div>
+			<ul>
+				<li v-for="(task, index) in tasks" :key="index">
+					{{ index + 1 }} . {{ task }}
+					<button @click="deleteTask(index)" class="sbtn">删除</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<footer>
+		<p>copyright&copy;&nbsp;霍 云 虎 &nbsp;&nbsp;× &nbsp;&nbsp;</p>
+		<img src="https://img.uinosoft.cn/img/index/footer/logo.png" class="Unuologo" />
+	</footer>
+</body>
+<script>
+	alert("登录成功，今天要元气满满哦！----霍云虎")
+	var app = new Vue({
+		el: '#app',
+		data: {
+			newTask: '',
+			tasks: []
+		},
+		methods: {
+			addTask() {
+				/* 判断 */
+				if (this.newTask !== '') {
+					this.tasks.push(this.newTask);
+					this.newTask = '';
+				}
+			},
+			/* 删除 */
+			deleteTask(index) {
+				this.tasks.splice(index, 1);
+			},
+			/* 点击头像 */
+			chufa() {
+				window.alert("今天是冬至日哦，记得要吃饺子哦——12月22日");
+			}
+		}
+	});
+	/* 冬至日彩蛋 */
+	(function ($) {
+
+		$.fn.snow = function (options) {
+
+			var $flake = $('<div id="snowbox" />').css({
+				'position': 'absolute',
+				'top': '-50px'
+			}).html('&#10052;'),
+				documentHeight = $(document).height(),
+				documentWidth = $(document).width(),
+				defaults = {
+					minSize: 10,
+					maxSize: 20,
+					newOn: 1000,
+					flakeColor: "#FFFFFF"
+				},
+				options = $.extend({}, defaults, options);
+
+			var interval = setInterval(function () {
+				var startPositionLeft = Math.random() * documentWidth - 100,
+					startOpacity = 0.5 + Math.random(),
+					sizeFlake = options.minSize + Math.random() * options.maxSize,
+					endPositionTop = documentHeight - 100,
+					endPositionLeft = startPositionLeft - 100 + Math.random() * 100,
+					durationFall = documentHeight * 10 + Math.random() * 5000;
+				$flake.clone().appendTo('body').css({
+					left: startPositionLeft,
+					opacity: startOpacity,
+					'font-size': sizeFlake,
+					color: options.flakeColor
+				}).animate({
+					top: endPositionTop,
+					left: endPositionLeft,
+					opacity: 0.2
+				}, durationFall, 'linear', function () {
+					$(this).remove()
+				});
+
+			}, options.newOn);
+
+		};
+	})(jQuery);
+	$(function () {
+		$.fn.snow({
+			minSize: 5,
+			maxSize: 50,
+			newOn: 300
+		});
+	});
+</script>
+
+</html>
